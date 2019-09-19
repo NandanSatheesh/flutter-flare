@@ -10,9 +10,7 @@ void main() {
           title: Text('I am Rich'),
         ),
         body: Center(
-          child: Image(
-              image: NetworkImage(
-                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg')),
+          child: Image(image: AssetImage("images/owl.jpg")),
         ),
       ),
     ),
