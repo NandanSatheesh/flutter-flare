@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.teal,
         body: SafeArea(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Center(
                 child: CircleAvatar(
@@ -39,52 +40,45 @@ class MyApp extends StatelessWidget {
                         letterSpacing: 2.5,
                         fontWeight: FontWeight.bold)),
               ),
+              SizedBox(
+                child: Divider(color: Colors.white),
+                height: 20,
+                width: 150,
+              ),
               Card(
                 color: Colors.white,
                 margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    children: <Widget>[
-                      Icon(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      leading: Icon(
                         Icons.phone,
                         color: Colors.teal,
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
+                      title: Text(
                         '+91-876-217-1130',
                         style: TextStyle(
                             color: Colors.teal, fontFamily: 'Source Sans Pro'),
-                      )
-                    ],
-                  ),
-                ),
+                      ),
+                    )),
               ),
               Card(
                 color: Colors.white,
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    children: <Widget>[
-                      Icon(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      leading: Icon(
                         Icons.email,
                         color: Colors.teal,
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
+                      title: Text(
                         'nandan.199776@gmail.com',
                         style: TextStyle(
                             color: Colors.teal, fontFamily: 'Source Sans Pro'),
-                      )
-                    ],
-                  ),
-                ),
-              )
+                      ),
+                    )),
+              ),
             ],
           ),
         ),
