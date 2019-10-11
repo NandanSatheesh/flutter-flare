@@ -5,19 +5,26 @@ import 'package:flutter/material.dart';
 class MyFlutterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Container(
-            margin: EdgeInsets.all(20.0),
-            padding: EdgeInsets.all(20.0),
-            decoration:
-                BoxDecoration(color: Colors.green, shape: BoxShape.rectangle),
-            child: Text(
-              generateRandomNumber(),
-              style: TextStyle(
-                  decoration: TextDecoration.lineThrough,
-                  fontSize: 40,
-                  color: Colors.blue),
-            )));
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        getContainerWithRandomNumber(),
+        getContainerWithRandomNumber(),
+        getContainerWithRandomNumber(),
+        getContainerWithRandomNumber(),
+      ],
+    );
+  }
+
+  Widget getContainerWithRandomNumber() {
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(color: Colors.purple),
+        margin: EdgeInsets.all(20),
+        child: Text(generateRandomNumber()),
+      ),
+    );
   }
 
   String generateRandomNumber() {
