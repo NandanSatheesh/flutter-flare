@@ -6,24 +6,14 @@ class MyFlutterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Row(
           children: <Widget>[
-            getContainerWithRandomNumber(),
-            getContainerWithRandomNumber(),
-            getContainerWithRandomNumber(),
-            getContainerWithRandomNumber(),
+            FavoriteCity(),
           ],
         ),
         Row(
-          children: <Widget>[
-            getContainerWithRandomNumber(),
-            getContainerWithRandomNumber(),
-            getContainerWithRandomNumber(),
-            getContainerWithRandomNumber(),
-          ],
+          children: <Widget>[],
         ),
         Container(
           margin: EdgeInsets.all(20),
@@ -65,5 +55,32 @@ class MyFlutterApp extends StatelessWidget {
     var random = Random();
     int randomNumber = random.nextInt(100);
     return "Your Random Number is $randomNumber";
+  }
+}
+
+class FavoriteCity extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _FavoriteCityState();
+  }
+}
+
+class _FavoriteCityState extends State<FavoriteCity> {
+  String _name = "";
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        TextField(
+          onSubmitted: (String string) {
+            setState(() {
+              _name = string;
+            });
+          },
+        ),
+        Text('Your favorite city is $_name'),
+      ],
+    );
   }
 }
