@@ -9,12 +9,43 @@ class MyFlutterApp extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        getContainerWithRandomNumber(),
-        getContainerWithRandomNumber(),
-        getContainerWithRandomNumber(),
-        getContainerWithRandomNumber(),
+        Row(
+          children: <Widget>[
+            getContainerWithRandomNumber(),
+            getContainerWithRandomNumber(),
+            getContainerWithRandomNumber(),
+            getContainerWithRandomNumber(),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            getContainerWithRandomNumber(),
+            getContainerWithRandomNumber(),
+            getContainerWithRandomNumber(),
+            getContainerWithRandomNumber(),
+          ],
+        ),
+        Container(
+          margin: EdgeInsets.all(20),
+          child: RaisedButton(
+            color: Colors.deepOrange,
+            elevation: 6.0,
+            child: Text('Raised Button'),
+            onPressed: () => showAlertDialog(context),
+          ),
+        )
       ],
     );
+  }
+
+  void showAlertDialog(final BuildContext context) {
+    var alertDialog = AlertDialog(
+      title: Text("Clicked"),
+      content: Text("Done"),
+    );
+
+    showDialog(
+        context: context, builder: (BuildContext context) => alertDialog);
   }
 
   Widget getContainerWithRandomNumber() {
@@ -22,7 +53,10 @@ class MyFlutterApp extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(color: Colors.purple),
         margin: EdgeInsets.all(20),
-        child: Text(generateRandomNumber()),
+        child: Text(
+          generateRandomNumber(),
+          style: TextStyle(fontSize: 10),
+        ),
       ),
     );
   }
