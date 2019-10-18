@@ -34,6 +34,15 @@ class SIForm extends StatefulWidget {
 class _SIFormState extends State<SIForm> {
   var _currencies = ['Rupee', 'Dollar', 'Pounds'];
 
+  var _currentItemSelected = 'Rupee';
+
+  String text = 'Your Simple Interest is ';
+  String calculated = '';
+
+  TextEditingController principleController = TextEditingController();
+  TextEditingController timeController = TextEditingController();
+  TextEditingController rateOfInterestController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -45,6 +54,7 @@ class _SIFormState extends State<SIForm> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
+                controller: principleController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: 'Principal',
@@ -57,6 +67,7 @@ class _SIFormState extends State<SIForm> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
+                controller: rateOfInterestController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: 'Rate of Interest',
@@ -73,6 +84,7 @@ class _SIFormState extends State<SIForm> {
                 ),
                 Expanded(
                   child: TextField(
+                    controller: timeController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: 'Duration',
@@ -90,8 +102,12 @@ class _SIFormState extends State<SIForm> {
                   items: _currencies.map((String value) {
                     return DropdownMenuItem(child: Text(value), value: value);
                   }).toList(),
-                  value: 'Rupee',
-                  onChanged: (String newValueSelected) {},
+                  value: _currentItemSelected,
+                  onChanged: (String newValueSelected) {
+                    setState(() {
+                      _currentItemSelected = newValueSelected;
+                    });
+                  },
                 )),
                 SizedBox(
                   width: 12,
@@ -103,7 +119,11 @@ class _SIFormState extends State<SIForm> {
                 Expanded(
                   child: RaisedButton(
                     child: Text('Calculate'),
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        calculateTotalReturns();
+                      });
+                    },
                   ),
                 ),
                 Container(
@@ -112,7 +132,14 @@ class _SIFormState extends State<SIForm> {
                 Expanded(
                   child: RaisedButton(
                     child: Text('Reset'),
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        principleController.clear();
+                        timeController.clear();
+                        rateOfInterestController.clear();
+                        calculated = '';
+                      });
+                    },
                   ),
                 )
               ],
@@ -120,7 +147,7 @@ class _SIFormState extends State<SIForm> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Interest Calculated is ...',
+                this.calculated,
                 style: TextStyle(fontSize: 16),
               ),
             ),
@@ -128,5 +155,15 @@ class _SIFormState extends State<SIForm> {
         ),
       ),
     );
+  }
+
+  void calculateTotalReturns() {
+    double principle = double.parse(principleController.text);
+    double time = double.parse(timeController.text);
+    double rate = double.parse(rateOfInterestController.text);
+
+    double interest = (principle * time * rate) / 100.0;
+
+    this.calculated = text + interest.toString() + ' ' + _currentItemSelected;
   }
 }
