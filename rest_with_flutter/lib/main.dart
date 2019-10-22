@@ -138,6 +138,7 @@ class _SIFormState extends State<SIForm> {
                         timeController.clear();
                         rateOfInterestController.clear();
                         calculated = '';
+                        _currentItemSelected = 'Rupee';
                       });
                     },
                   ),
