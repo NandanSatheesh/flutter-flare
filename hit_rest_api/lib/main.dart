@@ -41,42 +41,83 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Future<Quote> quoteFromApi;
+  bool apiCall = false;
+  String quote = '';
+  String byKanye = '- Kanye West';
 
   @override
   void initState() {
     super.initState();
-    quoteFromApi = fetchQuote();
+    _callQuotesApi();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Kanye Quotes Again'),
         ),
-        home: Scaffold(
-          body: Container(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  FutureBuilder<Quote>(
-                    future: quoteFromApi,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Text(snapshot.data.quote);
-                      } else if (snapshot.hasError) {
-                        return Text("${snapshot.error}");
-                      }
-                      return CircularProgressIndicator();
-                    },
-                  ),
-                  Text('- Kanye West'),
-                ],
-              ),
+        body: Container(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                getProperWidget(),
+                Text(
+                  byKanye,
+                  style: Theme.of(context).textTheme.display1.copyWith(
+                        fontSize: 32.0,
+                      ),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              apiCall = true;
+              byKanye = '';
+            });
+            _callQuotesApi();
+          },
+          child: Icon(Icons.refresh),
+        ),
+      ),
+    );
+  }
+
+  Widget getProperWidget() {
+    if (apiCall)
+      return new CircularProgressIndicator();
+    else
+      return Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.all(32.0),
+        child: Text(
+          '$quote',
+          style: Theme.of(context).textTheme.display1,
+        ),
+      );
+  }
+
+  void _callQuotesApi() {
+    fetchQuote().then((value) {
+      setState(() {
+        apiCall = false;
+        quote = value.quote;
+        byKanye = '- Kanye West';
+      });
+    }, onError: (error) {
+      setState(() {
+        apiCall = false;
+        quote = error.toString();
+      });
+    });
   }
 }
