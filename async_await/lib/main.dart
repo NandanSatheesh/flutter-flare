@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:async_await/post_view.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -28,25 +29,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final String url = 'https://jsonplaceholder.typicode.com/posts';
 
-  dynamic data;
+  Future<List<dynamic>> data;
 
   @override
   void initState() {
     super.initState();
-
-    this.getJsonData();
+    data = this.getJsonData();
   }
 
-  Future<String> getJsonData() async {
+  Future<List<dynamic>> getJsonData() async {
     var response = await http
         .get(Uri.encodeFull(url), headers: {'Accept': 'application/json'});
 
-    print(response.body);
-
-    setState(() {
-      var convertDataToJson = json.decode(response.body);
-      data = convertDataToJson;
-    });
+    return json.decode(response.body);
   }
 
   @override
@@ -55,11 +50,35 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Async and Await'),
       ),
-      body: Container(
-        margin: EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemBuilder: (BuildContext context, int index) {
-            return Card(
+      body: FutureBuilder<List<dynamic>>(
+        future: getJsonData(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            print(snapshot.hasError);
+          }
+
+          return snapshot.hasData
+              ? getCardListBuilder(snapshot.data)
+              : Center(child: CircularProgressIndicator());
+        },
+      ),
+    );
+  }
+
+  Widget getCardListBuilder(List<dynamic> data) {
+    return Container(
+      margin: EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(16.0),
+      child: ListView.builder(
+        itemBuilder: (BuildContext context, int index) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PostView()),
+              );
+            },
+            child: Card(
               child: Container(
                 padding: EdgeInsets.all(16.0),
                 child: Column(
@@ -76,10 +95,11 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-            );
-          },
-          itemCount: data.length,
-        ),
+              elevation: 4,
+            ),
+          );
+        },
+        itemCount: data.length,
       ),
     );
   }
