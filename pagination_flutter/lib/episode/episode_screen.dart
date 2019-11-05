@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pagination_flutter/episode/episode_details.dart';
 import 'package:pagination_flutter/model/episode.dart';
 import 'package:paging/paging.dart';
 
@@ -34,8 +35,13 @@ class _EpisodeScreenState extends State<EpisodeScreen> {
         pageBuilder: (currentSize) => pageData(),
         itemBuilder: (index, item) {
           return GestureDetector(
+            behavior: HitTestBehavior.translucent,
             onTap: () {
-              debugPrint(item.toString());
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EpisodeDetails(data: item)),
+              );
             },
             child: Container(
               margin: EdgeInsets.fromLTRB(16, 16, 24, 0),

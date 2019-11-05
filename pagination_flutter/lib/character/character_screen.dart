@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pagination_flutter/character/character_details.dart';
 import 'package:pagination_flutter/model/character.dart';
 import 'package:paging/paging.dart';
 
@@ -34,8 +35,14 @@ class _CharacterScreenState extends State<CharacterScreen> {
         pageBuilder: (currentSize) => pageData(),
         itemBuilder: (index, item) {
           return GestureDetector(
+            behavior: HitTestBehavior.translucent,
             onTap: () {
-              debugPrint(item.toString());
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        CharacterDetails(characterData: item)),
+              );
             },
             child: Container(
               margin: EdgeInsets.fromLTRB(16, 16, 24, 0),

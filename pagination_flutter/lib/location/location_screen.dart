@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pagination_flutter/location/location_details.dart';
 import 'package:pagination_flutter/model/location.dart';
 import 'package:paging/paging.dart';
 
@@ -34,8 +35,13 @@ class _LocationScreenState extends State<LocationScreen> {
         pageBuilder: (currentSize) => pageData(),
         itemBuilder: (index, item) {
           return GestureDetector(
+            behavior: HitTestBehavior.translucent,
             onTap: () {
-              debugPrint(item.toString());
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => LocationDetails(data: item)),
+              );
             },
             child: Container(
               margin: EdgeInsets.fromLTRB(16, 16, 24, 0),
