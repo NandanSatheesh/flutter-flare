@@ -28,6 +28,12 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    pageNumber = 1;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Location List')),

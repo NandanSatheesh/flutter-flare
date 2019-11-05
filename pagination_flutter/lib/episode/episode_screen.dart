@@ -28,6 +28,12 @@ class _EpisodeScreenState extends State<EpisodeScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    pageNumber = 1;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Episode List')),
@@ -46,11 +52,17 @@ class _EpisodeScreenState extends State<EpisodeScreen> {
             child: Container(
               margin: EdgeInsets.fromLTRB(16, 16, 24, 0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Row(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        item.name + ' - ' + item.episode,
+                        item.name,
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      Text(
+                        item.episode,
                         style: TextStyle(fontSize: 24),
                       )
                     ],

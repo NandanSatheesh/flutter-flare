@@ -18,6 +18,12 @@ class CharacterScreen extends StatefulWidget {
 class _CharacterScreenState extends State<CharacterScreen> {
   static int pageNumber = 1;
 
+  @override
+  void initState() {
+    super.initState();
+    pageNumber = 1;
+  }
+
   Future<List<Result>> pageData() async {
     final response = await http.Client()
         .get('https://rickandmortyapi.com/api/character/?page=$pageNumber');
