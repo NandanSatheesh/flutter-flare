@@ -20,6 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_launcher_icons: ^0.7.2+1
   paging: 0.1.0
   http:
 
@@ -31,6 +32,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path_android: "images/app-icon.png"
+  image_path_ios: "images/app-icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -79,3 +85,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
