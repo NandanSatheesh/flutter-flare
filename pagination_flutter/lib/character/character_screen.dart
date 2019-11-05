@@ -64,6 +64,9 @@ class _CharacterScreenState extends State<CharacterScreen> {
                           height: 64,
                         ),
                       ),
+                      SizedBox(
+                        width: 16,
+                      ),
                       Expanded(
                           flex: 8,
                           child: Text(
