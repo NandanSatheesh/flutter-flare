@@ -13,7 +13,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  CryptoViewModel _vm = CryptoViewModel();
+  CryptoViewModel _vm = CryptoViewModel();dart
 
   final centeredCircularProgressIndicator =
       Center(child: CircularProgressIndicator());
